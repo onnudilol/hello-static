@@ -1,0 +1,22 @@
+version: 2.1
+orbs:
+  heroku: circleci/heroku@0.0.10
+jobs:
+  test:
+    docker:
+      - image: circleci/node:latest-browsers
+    steps:
+      - checkout
+      - run:
+          name: install packages
+          command: npm install
+      - run:
+          name: run test
+          command: npm test
+
+workflows:
+  Puppeteer Test:
+    jobs:
+    - test
+    - heroku/deploy-via-git
+  version: 2
